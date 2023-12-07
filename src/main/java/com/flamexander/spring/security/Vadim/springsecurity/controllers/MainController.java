@@ -1,7 +1,10 @@
 package com.flamexander.spring.security.Vadim.springsecurity.controllers;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 public class MainController {
@@ -11,8 +14,8 @@ public class MainController {
     }
 
     @GetMapping("/authenticated")                   // аутентифицированный
-    public String pageForAuthenticatedUser(){          // страница для аутентифицированного пользователя
-        return "secured part of web service";          // защищенная часть веб-сервиса
+    public String pageForAuthenticatedUser(Principal principal){          // страница для аутентифицированного пользователя
+        return "secured part of web service: " + principal.getName();          // защищенная часть веб-сервиса
     }
 }
 
