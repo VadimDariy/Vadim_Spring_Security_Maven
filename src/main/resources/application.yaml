@@ -10,12 +10,12 @@ spring:
 #      ddl-auto: create
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL161Dialect
+        dialect:  org.hibernate.dialect.PostgreSQL9Dialect
         temp:
           use_jdbc_metadata_defaults: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=springsecurity
+    url: jdbc:postgresql://localhost:5432/spring_security
     username: postgres
     password: root
 

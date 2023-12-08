@@ -20,7 +20,7 @@ public class MainController {
 }
 
 
-/*       @RestController - содержит в себе две другие аннотации - @Controller и @ResponseBody, где
+/**       @RestController - содержит в себе две другие аннотации - @Controller и @ResponseBody, где
                    @ResponseBody - указывает, что  возвращаемое значение методом контроллера, должно быть прямо включено
                                    в тело HTTP-ответа.
                    @Controller - указывает, что класс является контроллером (controller). Oбрабатывает HTTP-запросы,

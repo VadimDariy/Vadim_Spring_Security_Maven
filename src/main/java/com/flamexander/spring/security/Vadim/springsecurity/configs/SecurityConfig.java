@@ -45,33 +45,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // jdbcAuthentication
 
-    @Bean
-    public JdbcUserDetailsManager users(DataSource dataSource){
-        UserDetails user = User.builder()
-                .username("user")
-                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
-                .roles("USER")
-                .build();
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
-                .roles("USER", "ADMIN")
-                .build();
-        JdbcUserDetailsManager JdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        if(JdbcUserDetailsManager.userExists(user.getUsername())){
-            JdbcUserDetailsManager.deleteUser(user.getUsername());
-        }
-        if(JdbcUserDetailsManager.userExists(admin.getUsername())){
-            JdbcUserDetailsManager.deleteUser(admin.getUsername());
-        }
-        JdbcUserDetailsManager.createUser(user);
-        JdbcUserDetailsManager.createUser(admin);
-        return JdbcUserDetailsManager;
-    }
-
+//    @Bean
+//    public JdbcUserDetailsManager users(DataSource dataSource){
+//        UserDetails user = User.builder()
+//                .username("user")
+//                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
+//                .roles("USER")
+//                .build();
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
+//                .roles("USER", "ADMIN")
+//                .build();
+//        JdbcUserDetailsManager JdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+//        if(JdbcUserDetailsManager.userExists(user.getUsername())){
+//            JdbcUserDetailsManager.deleteUser(user.getUsername());
+//        }
+//        if(JdbcUserDetailsManager.userExists(admin.getUsername())){
+//            JdbcUserDetailsManager.deleteUser(admin.getUsername());
+//        }
+//        JdbcUserDetailsManager.createUser(user);
+//        JdbcUserDetailsManager.createUser(admin);
+//        return JdbcUserDetailsManager;
+//    }
 }
 
-/*
+/**
 @EnableWebSecurity - включает базовую поддержку безопасности веб-приложения. Применяется к конфигурационному
                               классу, который расширяет WebSecurityConfigurerAdapter, и позволяет настраивать параметры
                               безопасности для веб-приложения.
@@ -135,11 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          Этот код возвращает новый объект InMemoryUserDetailsManager, который является реализацией UserDetailsService
          для хранения пользовательских данных в памяти. В данном случае, ему передаются пользователи "user" и "admin".
 
-
-
-
-
- */
+ **/
 
 
 
