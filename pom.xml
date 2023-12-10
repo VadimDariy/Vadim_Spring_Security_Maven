@@ -61,7 +61,6 @@
             <version>6.4.0.Final</version>
             <type>pom</type>
         </dependency>
-
     </dependencies>
 
     <build>

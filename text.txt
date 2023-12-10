@@ -1,13 +1,13 @@
 
-                   FPLICATION.YAML
+                   APLICATION.YAML
 
 server:
     port: 8189 # означает, что веб-приложение будет доступно по адресу: http://localhost:8189
 
 servlet:
-    context-path: /security # определяет префикс веб-пути для контекстного адреса: http://localhost:8189/security
+    context-path: /security # определяет префикс(корень) веб-пути для контекстного адреса: http://localhost:8189/security
 
-# Протокол: http://
+#Протокол: http://
 #Домен (Хост): example.com
 #Префикс веб-пути: /app
 #Путь к ресурсу: /about
@@ -17,12 +17,15 @@ spring:
       show-sql: true  # означает, что SQL-запросы будут отображаться в консоли для удобства отладки и анализа.
       properties:
         hibernate:
-          dialect: org.hibernate.dialect.PostgreSQL161Dialect  # диалект Hibernate для работы с конкретной базой данных. Здесь указан диалект для PostgreSQL версии 9.5.
+          dialect: org.hibernate.dialect.PostgreSQL9Dialect  # диалект Hibernate для работы с конкретной базой данных.
+                                                               Здесь цифра "9" указывает, что диалект может работать с
+                                                               от 9 - й версии PostgreSQL и всех последующих новых
+                                                               версий PostgreSQL.
           temp:
               use_jdbc_metadata_defaults: false # не использовать значения по умолчанию для метаданных JDBC.
 datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/springBoot?currentSchema=springsecurity
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=springsecurity
     username: postgres
     password: root
 

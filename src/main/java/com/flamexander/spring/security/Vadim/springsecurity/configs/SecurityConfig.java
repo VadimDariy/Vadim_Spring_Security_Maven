@@ -13,7 +13,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
 
-@EnableWebSecurity  // включаем веб-безопасность
+@EnableWebSecurity  /** включаем веб-безопасность */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,7 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/");
     }
 
-    // In-Memory
+    /** РАБОТА С ЮЗЕРАМИ НЕ ИМЕЯ СУЩНОСТЕЙ ЮЗЕР
+     1. In-Memory - ситуация, когда пользователи хранятся в памяти. В БД пользователи не попадают и при перезапуске они
+        будут пересозданы */
+
 //    @Bean
 //    public UserDetailsService users(){
 //        UserDetails user = User.builder()
@@ -43,31 +46,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new InMemoryUserDetailsManager(user, admin);
 //    }
 
-    // jdbcAuthentication
+    /** jdbcAuthentication */
 
-//    @Bean
-//    public JdbcUserDetailsManager users(DataSource dataSource){
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
-//                .roles("USER")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
-//                .roles("USER", "ADMIN")
-//                .build();
-//        JdbcUserDetailsManager JdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-//        if(JdbcUserDetailsManager.userExists(user.getUsername())){
-//            JdbcUserDetailsManager.deleteUser(user.getUsername());
-//        }
-//        if(JdbcUserDetailsManager.userExists(admin.getUsername())){
-//            JdbcUserDetailsManager.deleteUser(admin.getUsername());
-//        }
-//        JdbcUserDetailsManager.createUser(user);
-//        JdbcUserDetailsManager.createUser(admin);
-//        return JdbcUserDetailsManager;
-//    }
+    @Bean
+    public JdbcUserDetailsManager users(DataSource dataSource){
+        UserDetails user = User.builder()
+                .username("user")
+                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
+                .roles("USER")
+                .build();
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password("{bcrypt}$2a$12$fSSP1rzTGSjWHqdqF9aYpO3Ke.PDW43lE1QfoqhQWguoGbPxhoahG")
+                .roles("ADMIN", "USER")
+                .build();
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+        if(jdbcUserDetailsManager.userExists(user.getUsername())){
+            jdbcUserDetailsManager.deleteUser(user.getUsername());
+        }
+        if(jdbcUserDetailsManager.userExists(admin.getUsername())){
+            jdbcUserDetailsManager.deleteUser(admin.getUsername());
+        }
+        jdbcUserDetailsManager.createUser(user);
+        jdbcUserDetailsManager.createUser(admin);
+        return jdbcUserDetailsManager;
+    }
 }
 
 /**
